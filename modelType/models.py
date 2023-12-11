@@ -21,7 +21,7 @@ class Unmanaged(models.Model):
         managed = False
 
 # this is subclassing the meta data by inheriting commonInfo
-    class Meta(CommonInfo.Meta):
+    class meta(CommonInfo.Meta):
         db_table = "student_info"
 
 
