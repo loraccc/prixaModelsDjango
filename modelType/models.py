@@ -18,7 +18,7 @@ class CommonInfo(models.Model):
 class Unmanaged(models.Model):
     class Meta:
         abstract = True
-        managed = False
+        # managed = False
 
 # this is subclassing the meta data by inheriting commonInfo
     class meta(CommonInfo.Meta):
@@ -26,11 +26,11 @@ class Unmanaged(models.Model):
 
 
 # what this does is it inherits abstract method from commonInfo and also inherits managed=false from unmanaged model 
-class Student(CommonInfo, Unmanaged):
+class Student(CommonInfo):
     home_group = models.CharField(max_length=5)
 
-    class Meta(CommonInfo.Meta, Unmanaged.Meta):
-        pass
+    # class Meta(CommonInfo.Meta, Unmanaged.Meta):
+    #     pass
 
 
 # class CommonInfoWithTimestamp(CommonInfo):
@@ -38,3 +38,7 @@ class Student(CommonInfo, Unmanaged):
 
 #     class Meta:
 #         proxy = True
+
+# ---------------MODEL
+
+#  WHAT MODEL MANAGER DOES IS THAT IT HELPS RETRIEVE A SET OF QUERIES FORM ANY MODEL ACCORDING TO NEED AND NOT example.objects.all()
