@@ -14,7 +14,7 @@
                 <th>Name</th>
                 <th>Age</th>
                 <th>Home Group</th>
-                <!-- <th>Is Adult</th> -->
+                <th colspan="3">ACTIONS</th>
             </tr>
         </thead>
         <tbody>
@@ -22,8 +22,11 @@
                 <tr>
                     <td>{{ student.name }}</td>
                     <td>{{ student.age }}</td>
-                    <!-- <td>{{ student.home_group }}</td> -->
-                    <td>{{ student.is_adult }}</td>
+                    <td>{{ student.home_group }}</td>
+                    <td><a href="http://">EDIT</a>  </td>
+                    <td><a href="http://">DELETE</a>  </td>
+                    <td><a href="{% url 'student_detail' pk=student.pk %}">DETAIL</a></td>
+                    <!-- <td><a href="{% url 'student_detail' student.pk %}">DETAIL</a></td> -->
                 </tr>
             {% endfor %}
         </tbody>
