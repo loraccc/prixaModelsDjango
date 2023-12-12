@@ -3,6 +3,7 @@ from datetime import datetime
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 from django.utils.text import slugify
+# from autoslug import AutoSlugField
 # Create your models here.
 
 class CommonInfo(models.Model):
@@ -11,12 +12,10 @@ class CommonInfo(models.Model):
 
     class Meta:
         abstract = True
-        # manage=False means that commonInfo table will not be created in the databsse
 
     def __str__(self) -> str:
         return self.name
 
-# CommonInfo is the name of class thats inherited from above
 class Unmanaged(models.Model):
     class Meta:
         abstract = True
@@ -73,7 +72,9 @@ class Lesson(models.Model):
     def save(self, *args, **kwargs):
         # Auto-generate the slug when saving the lesson
         if not self.slug:
-            self.slug = slugify(self.title)
+            print(self.id,'iddddddddddddddddddd')
+            self.slug=slugify(self.title + str(self.id) )
+                # raise Exception("Error creating slug")
         super().save(*args, **kwargs)
 
     def __str__(self):

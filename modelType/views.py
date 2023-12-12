@@ -1,4 +1,5 @@
-from django.shortcuts import render,get_object_or_404, redirect
+from typing import Any
+from django.shortcuts import render,get_object_or_404, redirect, HttpResponseRedirect
 from django.views import generic
 from django.views.generic import ListView,DetailView
 from .models import CommonInfo,Student
@@ -21,6 +22,11 @@ class StudentListView(ListView):
     template_name = 'index.html'
     context_object_name = 'students'
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['name'] = 'Saurav'
+        return context
+
 
 class StudentDetailView(DetailView):
     model = Student
@@ -36,8 +42,15 @@ class LessonListView(View):
         lessons = Lesson.objects.all()
         return render(request, self.template_name, {'lessons': lessons})
 
+
+
+##############
+#Lession 
+#############
 class LessonCreateView(View):
     template_name = 'lesson_form.html'
+
+    
 
     def get(self, request):
         form = LessonForm()
@@ -46,7 +59,8 @@ class LessonCreateView(View):
     def post(self, request):
         form = LessonForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            m = form.save(commit=False)
+            m.save()
             return redirect('lesson_list')
         return render(request, self.template_name, {'form': form})
 
