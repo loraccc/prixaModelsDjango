@@ -5,7 +5,7 @@ from django.views.generic import ListView,DetailView
 from .models import CommonInfo,Student
 from django.urls import reverse_lazy
 from django.views import View
-from .models import Lesson
+from .models import Lesson,Course
 from .forms import LessonForm
 # Create your views here.
 
@@ -15,6 +15,8 @@ from .forms import LessonForm
 #     context = {
 #         'students': students
 #     }
+#     for std in students:
+#         print(std.name)
 #     return render(request, 'index.html',context)
 
 class StudentListView(ListView):
@@ -35,18 +37,26 @@ class StudentDetailView(DetailView):
     def get_success_url(self):
         return reverse_lazy('student_list')
 
-class LessonListView(View):
-    template_name = 'lesson_list.html'
-
-    def get(self, request):
-        lessons = Lesson.objects.all()
-        return render(request, self.template_name, {'lessons': lessons})
-
-
 
 ##############
-#Lession 
+#Lesson 
 #############
+def Lessonlist(request):
+    lessons = Lesson.objects.all()
+    
+    for lesson in lessons:
+        print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
+    context = {'lessons': lessons}
+    return render(request, 'lesson_list.html',context)
+
+
+# class LessonListView(View):
+#     template_name = 'lesson_list.html'
+
+#     def get(self, request):
+#         lessons = Lesson.objects.all()
+#         return render(request, self.template_name, {'lessons': lessons})
+
 class LessonCreateView(View):
     template_name = 'lesson_form.html'
 
