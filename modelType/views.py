@@ -41,9 +41,17 @@ class StudentDetailView(DetailView):
 ##############
 #Lesson 
 #############
+# def Lessonlist(request):
+#     lessons = Lesson.objects.all().select_related('course')      
+#     # In select related we pass the key value that is set for foreign key . 
+#     for lesson in lessons:
+#         print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
+#     context = {'lessons': lessons}
+#     return render(request, 'lesson_list.html',context)
+
 def Lessonlist(request):
-    lessons = Lesson.objects.all()
-    
+    lessons = Lesson.objects.filter(course__name='DATA SCIENCE').select_related('course')      
+    # In select related we pass the key value that is set for foreign key . 
     for lesson in lessons:
         print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
     context = {'lessons': lessons}
