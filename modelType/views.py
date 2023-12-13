@@ -24,7 +24,7 @@ class StudentListView(ListView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['name'] = 'Saurav'
+        context['name'] = 'lorac'
         return context
 
 
@@ -49,8 +49,6 @@ class LessonListView(View):
 #############
 class LessonCreateView(View):
     template_name = 'lesson_form.html'
-
-    
 
     def get(self, request):
         form = LessonForm()

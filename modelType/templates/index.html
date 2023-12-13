@@ -1,14 +1,56 @@
-<!-- modelType/templates/modelType/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student List</title>
+    <title>Student List {{ name }}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #0066cc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #004080;
+        }
+    </style>
 </head>
 <body>
-    <h1>Student List  {{ name }}</h1>
-    <table border="1">
+    <h1>Student List {{ name }}</h1>
+    <table>
         <thead>
             <tr>
                 <th>Name</th>
@@ -23,10 +65,9 @@
                     <td>{{ student.name }}</td>
                     <td>{{ student.age }}</td>
                     <td>{{ student.home_group }}</td>
-                    <td><a href="http://">EDIT</a>  </td>
-                    <td><a href="http://">DELETE</a>  </td>
+                    <td><a href="#">EDIT</a></td>
+                    <td><a href="#">DELETE</a></td>
                     <td><a href="{% url 'student_detail' pk=student.pk %}">DETAIL</a></td>
-                    <!-- <td><a href="{% url 'student_detail' student.pk %}">DETAIL</a></td> -->
                 </tr>
             {% endfor %}
         </tbody>
