@@ -1,7 +1,7 @@
 # signals.py
 
 import logging
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,pre_delete,post_delete
 from django.dispatch import receiver
 from modelType.models import Lesson
 
@@ -16,6 +16,9 @@ def lesson_created_handler(sender, instance, **kwargs):
         logger.info(success_message)
 
 
+@receiver(post_delete,sender=Lesson)
+def post_delete(sender,**kwargs):
+    print(f'You deleted {Lesson.title}')
 
 
 
