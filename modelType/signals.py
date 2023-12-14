@@ -1,4 +1,5 @@
-# signals.py
+# signals.
+from django.utils import timezone
 
 import logging
 from django.db.models.signals import post_save,pre_delete,post_delete
@@ -20,6 +21,17 @@ def lesson_created_handler(sender, instance, **kwargs):
 def post_delete(sender,**kwargs):
     print(f'You deleted {Lesson.title}')
 
+
+@receiver(pre_delete,sender=Lesson)
+def pre_delete(sender,instance,**kwargs):
+    deleted_time=timezone.now()
+    print(f"Lesson '{instance.title}' deleted at {deleted_time}")
+
+
+# @receiver(pre_delete, sender=Lesson)
+# def log_delete_time(sender, instance, **kwargs):
+#     deleted_time = timezone.now()
+#     print(f"Lesson '{instance.title}' deleted at {deleted_time}")
 
 
 # Basically postsave and presave chai kaile use huncha vanda after save chai k garni vanera function dina paryo and also pre save ma function define garna milcha
