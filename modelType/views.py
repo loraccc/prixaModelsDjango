@@ -7,6 +7,9 @@ from django.urls import reverse_lazy
 from django.views import View
 from .models import Lesson,Course
 from .forms import LessonForm
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib import messages
 # Create your views here.
 
 
@@ -41,29 +44,30 @@ class StudentDetailView(DetailView):
 ##############
 #Lesson 
 #############
-# def Lessonlist(request):
-#     lessons = Lesson.objects.all().select_related('course')      
-#     # In select related we pass the key value that is set for foreign key . 
-#     for lesson in lessons:
-#         print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
-#     context = {'lessons': lessons}
-#     return render(request, 'lesson_list.html',context)
-
-def Lessonlist(request):
-    lessons = Lesson.objects.filter(course__name='DATA SCIENCE').select_related('course')      
-    # In select related we pass the key value that is set for foreign key . 
-    for lesson in lessons:
-        print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
-    context = {'lessons': lessons}
-    return render(request, 'lesson_list.html',context)
-
-
 # class LessonListView(View):
 #     template_name = 'lesson_list.html'
 
 #     def get(self, request):
 #         lessons = Lesson.objects.all()
 #         return render(request, self.template_name, {'lessons': lessons})
+
+def Lessonlist(request):
+    lessons = Lesson.objects.all().select_related('course')      
+    # In select related we pass the key value that is set for foreign key . 
+    for lesson in lessons:
+        print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
+    context = {'lessons': lessons}
+    return render(request, 'lesson_list.html',context)
+
+#------------------USING SELECT RELATED--------------------
+# def Lessonlist(request):
+#     lessons = Lesson.objects.filter(course__name='DATA SCIENCE').select_related('course')      
+#     # In select related we pass the key value that is set for foreign key . 
+#     for lesson in lessons:
+#         print(f"Lesson Title: {lesson.title},Course:{lesson.course.name}")
+#     context = {'lessons': lessons}
+#     return render(request, 'lesson_list.html',context)
+
 
 class LessonCreateView(View):
     template_name = 'lesson_form.html'
